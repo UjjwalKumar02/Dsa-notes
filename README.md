@@ -3,3 +3,5 @@
 - **Arrays:**
   - [Easy](./Arrays/Easy/README.md)
   - [Medium](./Arrays/Medium/README.md)
+- **Strings**:
+  - [Easy](./Strings/Easy/README.md)
