@@ -25,17 +25,13 @@ var slidingWindow = function(nums){
   let n = nums.length;
   let l = 0;
   let maxOnes = 0;
-  let ones = 0;
 
   for(let r=0; r<n; r++){
     if(nums[r] === 0){
-      ones = 0;
       l = r+1;
-    } else {
-      ones++;
     }
 
-    maxOnes = Math.max(maxOnes, ones);
+    maxOnes = Math.max(maxOnes, r-l+1);
   }
 
   return maxOnes;
