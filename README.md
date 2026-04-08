@@ -5,3 +5,4 @@
   - [Medium](./Arrays/Medium/README.md)
 - **Strings**:
   - [Easy](./Strings/Easy/README.md)
+  - [Medium](./Strings/Medium/README.md)
