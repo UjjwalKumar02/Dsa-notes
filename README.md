@@ -6,3 +6,5 @@
 - **Strings**:
   - [Easy](./Strings/Easy/README.md)
   - [Medium](./Strings/Medium/README.md)
+- **Sliding window**
+  - [Medium](./Sliding-window/README.md)
