@@ -8,3 +8,7 @@
   - [Medium](./Strings/Medium/README.md)
 - **Sliding window**
   - [Medium](./Sliding-window/README.md)
+- **Stacks**
+  - [Medium](./Stacks/README.md)
+- **Queues**
+  - [Medium](./Queues/README.md)
