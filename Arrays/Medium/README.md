@@ -269,3 +269,10 @@ for(){
 #### 17. No. of subarrays with sum k
 
 - Map + prefix sum algorithm
+
+#### 18. Contiguous array
+
+- solve it
+- map
+- map(0, -1) for length => i+1
+- prefix sum
