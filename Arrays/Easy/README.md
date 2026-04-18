@@ -108,9 +108,9 @@ function solution(arr) {
 
 #### 8. Max consecutive ones
 
-- Different sliding window
-- Resets the window if required
-- Length counting l => r : [r-l+1]
+- Sliding window
+- Resets the window if required `l = r+1`
+- Length : [r-l+1]
 
 ```js
 function solution(nums) {
@@ -132,14 +132,9 @@ function solution(nums) {
 - a ^ 0 = a
 - a ^ a = 0
 
-```js
-// 1, 1, 2, 2, 3
-// 0 ^ 2 => 2 ^ 2 => 0 ^ 3 => 3
-```
-
 #### 10. Longest subarrary with sum k
 
-- optimal: sliding window
+- Sliding window
 - while condition, Left++ and sum--
 
 ```js
@@ -189,3 +184,33 @@ function solution(nums, k) {
   return maxLen;
 }
 ```
+
+#### 12. Palindrome Number
+
+- Digits = number % 10 and number = number/10
+
+```js
+function solution(x) {
+  if (x < 0) return false;
+  if (x % 10 === 0 && x !== 0) return false;
+  let rev = 0;
+  while (x > rev) {
+    let digit = x % 10;
+    rev = rev * 10 + digit;
+    x = Math.floor(x / 10);
+  }
+  return x === rev || x === Math.floor(rev / 10);
+}
+```
+
+## Patterns
+
+- Length => sliding window
+- sliding window =>
+  - Window resets
+  - window slides
+  - window is true and make it false
+- Count of subarrays => AtMostK
+- Negative elements for sum => Prefix + Map
+- Maximum sum of subarray => Kaydane algorithm
+- Window => sliding window

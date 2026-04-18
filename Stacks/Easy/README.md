@@ -29,7 +29,7 @@
 
 #### 5. Pattern with stack
 
-- Loop'
+- Loop
 - check if matches condition with the stack[top]
 - else push to stack
 

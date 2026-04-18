@@ -9,6 +9,7 @@
 - **Sliding window**
   - [Medium](./Sliding-window/README.md)
 - **Stacks**
-  - [Medium](./Stacks/README.md)
+  - [Easy](./Stacks/Easy/README.md)
+  - [Medium](./Stacks/Medium//README.md)
 - **Queues**
   - [Medium](./Queues/README.md)

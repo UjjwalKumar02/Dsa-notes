@@ -2,8 +2,7 @@
 
 #### 1. Two sum
 
-- Map
-- Prefix sum algorithm
+- Map + Prefix sum algorithm
 
 ```js
 function solution(nums, k) {
@@ -25,7 +24,7 @@ function solution(nums, k) {
 - one loop
 - any target
 - if found ==> then result
-- else map.set()
+- map.set()
 
 #### 3. Sort colors
 
@@ -56,13 +55,14 @@ function solution(nums) {
 }
 ```
 
-#### 4. Max subarray sum (optimal)
+#### 4. Max subarray sum (Kaydane algorithm)
 
-- Kaydane algorithm
 - One variable Sum
 - One loop
 - Sum ++
 - If sum === -ve ==> then reset
+- At every step, we decide if start from fresh or continue
+- ex: currSum = -5, next = 10 ==> start fresh because sum decreases
 
 ```js
 function solution(nums) {
@@ -80,13 +80,7 @@ function solution(nums) {
 }
 ```
 
-#### 5. Note
-
-- Length ==> map + prefix sum
-- sum => kaydane
-- window ==> sliding window
-
-#### 6. Subarray start and end variables
+#### 5. Subarray start and end variables
 
 - Slice ==> give new array/string excluding end
 
@@ -95,13 +89,15 @@ function solution(nums) {
   if (nums.length === 0) return 0;
   let maxSum = nums[0];
   let sum = 0;
+
   let start = 0;
   let tempStart = 0;
   let end = 0;
+
   for (let i = 0; i < nums.length; i++) {
     if (sum < 0) {
       sum = 0;
-      tempStart = i;
+      tempStart = i; // resets
     }
     sum += nums[i];
     if (sum > maxSum) {
@@ -115,13 +111,13 @@ function solution(nums) {
 }
 ```
 
-#### 7. Rearrange elements with signs
+#### 6. Rearrange elements with signs
 
 - two variables : pos, neg ==> indexes
 - Increment by two
 - res[pos] = num ==> if pos (Assignment)
 
-#### 8. Backtracking
+#### 7. Backtracking
 
 - Try a choice => explore => undo the choice => try next option.
 
@@ -273,6 +269,6 @@ for(){
 #### 18. Contiguous array
 
 - solve it
-- map
+- prefix +1 -1
+- map + prefix sum
 - map(0, -1) for length => i+1
-- prefix sum
