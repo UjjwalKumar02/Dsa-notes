@@ -10,6 +10,8 @@
   - [Medium](./Sliding-window/README.md)
 - **Stacks**
   - [Easy](./Stacks/Easy/README.md)
-  - [Medium](./Stacks/Medium//README.md)
+  - [Medium](./Stacks/Medium/README.md)
+  - [Monotonic-stack](./Stacks/Monotonic-stack/README.md)
+  - [Medium](./Stacks/Hard/README.md)
 - **Queues**
   - [Medium](./Queues/README.md)
