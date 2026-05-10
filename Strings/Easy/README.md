@@ -80,15 +80,24 @@ string solution(vector<string> &strs){
 
 - Rotation unitl the length of string
 - and check if equals to goal
+
+- Rotation in string
+
+```js
+str = str.slice(1) + str[0];
+```
+
 - `(s+s).includes(goal)`
 
 ```c++
 bool solution(string s, string goal){
   for(int i=0; i<s.length(); i++){
     char temp = s[0];
+
     for(int i=0; i<s.length()-1; i++){
       s[i] = s[i+1];
     }
+
     s[s.length()-1] = temp;
 
     if(s == goal) return true;

@@ -15,3 +15,7 @@
   - [Hard](./Stacks/Hard/README.md)
 - **Queues**
   - [Medium](./Queues/README.md)
+- **Binary search**
+  - [Easy](./Binary-search/Easy/README.md)
+  - [Medium](./Binary-search/Medium/README.md)
+  - [Hard](./Binary-search/Hard/README.md)

@@ -62,7 +62,7 @@ var optimal = function (s1, s2) {
       if (j === m) break;
     }
 
-    if (j < m) break;
+    if (i === n) break;
 
     let end = i - 1;
     j = m - 1;

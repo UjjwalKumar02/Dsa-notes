@@ -62,9 +62,32 @@ var optimal = function (nums) {
   return res;
 };
 
+// -------------------------------Solution 3------------------------------
+var stackSolution = function (nums) {
+  let st = [];
+  let n = nums.length;
+  let res = [];
+
+  for (let i = n - 1; i >= 0; i--) {
+    while (st.length > 0 && st[st.length - 1] <= nums[i]) {
+      st.pop();
+    }
+
+    if (st.length === 0) {
+      res.unshift(nums[i]);
+    }
+
+    st.push(nums[i]);
+  }
+
+  return res;
+};
+
 let arr = [16, 17, 4, 3, 5, 2];
 let res1 = bruteForce(arr);
 let res2 = optimal(arr);
+let res3 = stackSolution(arr);
 
 console.log(res1);
 console.log(res2);
+console.log(res3);

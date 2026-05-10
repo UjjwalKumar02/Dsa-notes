@@ -1,4 +1,4 @@
-# Notes
+# Notes:
 
 #### 1. Two sum
 
@@ -8,11 +8,14 @@
 function solution(nums, k) {
   let mpp = new Map();
   // num, index
+
   for (let i = 0; i < nums.length; i++) {
     let target = k - nums[i];
+
     if (mpp.has(target)) {
       return [mpp.get(target), i];
     }
+
     mpp.set(nums[i], i);
   }
 }
@@ -69,10 +72,12 @@ function solution(nums) {
   if (nums.length === 0) return 0;
   let maxSum = nums[0];
   let sum = 0;
+
   for (let i = 0; i < nums.length; i++) {
     if (sum < 0) {
       sum = 0;
     }
+
     sum += nums[i];
     maxSum = Math.max(maxSum, sum);
   }
@@ -99,7 +104,9 @@ function solution(nums) {
       sum = 0;
       tempStart = i; // resets
     }
+
     sum += nums[i];
+
     if (sum > maxSum) {
       maxSum = sum;
       start = tempStart;
@@ -116,6 +123,13 @@ function solution(nums) {
 - two variables : pos, neg ==> indexes
 - Increment by two
 - res[pos] = num ==> if pos (Assignment)
+
+#### Array sorting
+
+```js
+arr.sort((a, b) => a - b); // small - large , ASC
+arr.sort((a, b) => b - a); // large - small , DESC
+```
 
 #### 7. Backtracking
 
@@ -227,9 +241,11 @@ function nextPermutation(nums) {
 
 ```js
 let some = true;
-for(){
-  if(){
+
+for("loop"){
+  if("condition"){
     some = false;
+    break;
   }
 }
 ```
@@ -245,8 +261,9 @@ for(){
 
 - Find the starting point
 - Use set (Hash set algorithm)
-- Loop for set (TL)
+- Loop in set (TL)
 - Curr ++, len ++
+- Solve
 
 #### 13. Set matrix zero
 
@@ -265,6 +282,34 @@ for(){
 #### 17. No. of subarrays with sum k
 
 - Map + prefix sum algorithm
+- If I’ve seen a prefix sum equal to sum - k before,
+- then I found a subarray ending here with sum k.
+
+```js
+function solution(arr, k) {
+  let mpp = new Map();
+  // prefix sum, freq
+
+  mpp.set(0, 1);
+
+  let sum = 0;
+  let count = 0;
+
+  for (let num of arr) {
+    sum += num;
+
+    let target = sum - k;
+
+    if (mpp.has(target)) {
+      count += mpp.get(target);
+    }
+
+    mpp.set(sum, (mpp.get(sum) || 0) + 1);
+  }
+
+  return count;
+}
+```
 
 #### 18. Contiguous array
 

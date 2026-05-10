@@ -1,12 +1,12 @@
-# Revision notes
+# Notes:
 
-#### 1. Variable to track the previous value
+#### 1. Track Previous value
 
 ```js
-let set = new Set();
 let curr = null;
 let prev = null;
-for (let num of set) {
+
+for (let num of nums) {
   prev = curr;
   curr = num;
 }
@@ -20,6 +20,7 @@ arr.length = 5;
 
 #### 3. Rotating array to left
 
+- Number of rotations should be the remainder after dividing the array length
 - Store the vulnerable value to temp
 - Rotate by loop
 - assign the missing one
@@ -37,7 +38,25 @@ arr[arr.length - 1] = temp;
 
 #### 4. Use set for unique values & Maps for frequncies and key-value pairs.
 
+```js
+let st = new Set([1, 2, 4]);
+let mpp = new Map([
+  ["key", value],
+  ["key", value],
+]);
+```
+
 #### 5. Merge Sort Algorithm
+
+```js
+function recursiveDFS() {
+  // Base condition
+  // call for left
+  // call for right
+  // Execute for current left and right
+  // return result
+}
+```
 
 ```js
 function mergeSort(arr) {
@@ -82,8 +101,8 @@ function helper(start, end, arr) {
 ```js
 let l = 0;
 
-for(let r=0; r<n; r++){
-  while(){
+for (let r = 0; r < n; r++) {
+  while ("when window fails") {
     l++;
   }
 }
@@ -97,11 +116,13 @@ for(let r=0; r<n; r++){
 ```js
 function solution(arr) {
   let cnt = 0;
+
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] > arr[(i + 1) % arr.length]) {
       cnt++;
     }
   }
+
   return cnt <= 1;
 }
 ```
@@ -109,7 +130,7 @@ function solution(arr) {
 #### 8. Max consecutive ones
 
 - Sliding window
-- Resets the window if required `l = r+1`
+- Resets the window if required `l = r + 1`
 - Length : [r-l+1]
 
 ```js
@@ -128,9 +149,16 @@ function solution(nums) {
 
 #### 9. XOR (Bitwise)
 
+- same ^ same = 0
+- diff ^ diff = 1
+
+- 2 ^ 2 = 0
 - 0 ^ 0 = 0
-- a ^ 0 = a
-- a ^ a = 0
+
+- 2 ^ 3 = 1
+- 10 ^ 11 = 01
+
+- Returns the single number
 
 #### 10. Longest subarrary with sum k
 
@@ -142,12 +170,15 @@ function solution(nums, k) {
   let l = 0;
   let sum = 0;
   let maxLen = 0;
+
   for (let r = 0; r < nums.length; r++) {
     sum += nums[r];
+
     while (sum > k) {
       sum -= nums[l];
       l++;
     }
+
     if (sum === k) {
       maxLen = Math.max(maxLen, r - l + 1);
     }
@@ -159,24 +190,34 @@ function solution(nums, k) {
 #### 11. Longest subarray with sum k (with negatives)
 
 - mpp[0] = -1 ==> if target = 0, then len = i+1
-- target = sum - k ==> sum - target== k
+- target = sum - k ==> sum - target = k
 - len = sum(i) - target(i)
 - Save earliest i for longest len
+
+- If I’ve seen a prefix sum equal to `sum - k` before,
+- then I found a subarray ending here with sum k.
 
 ```js
 function solution(nums, k) {
   let maxLen = 0;
+
   let mpp = new Map();
-  // sum, maxlen
+  // sum, earliest index
+
   mpp.set(0, -1);
+
   let sum = 0;
+
   for (let i = 0; i < nums.length; i++) {
     sum += nums[i];
+
     let target = sum - k;
+
     if (mpp.has(target)) {
       let len = i - mpp.get(target);
       maxLen = Math.max(maxLen, len);
     }
+
     if (!mpp.has(sum)) {
       mpp.set(sum, i);
     }
@@ -188,19 +229,59 @@ function solution(nums, k) {
 #### 12. Palindrome Number
 
 - Digits = number % 10 and number = number/10
+- Reverse = Reverse \* 10 + digit
 
 ```js
 function solution(x) {
   if (x < 0) return false;
   if (x % 10 === 0 && x !== 0) return false;
+
   let rev = 0;
+
   while (x > rev) {
     let digit = x % 10;
     rev = rev * 10 + digit;
     x = Math.floor(x / 10);
   }
+
   return x === rev || x === Math.floor(rev / 10);
 }
+```
+
+#### 13. Boyer Moore Voting Algorithm
+
+- candidate
+- cnt
+- if cnt === 0, candidate = num
+- cnt += (num === candidate) ? 1 : -1;
+- return cnt > nums.length/2 ? candidate : null
+
+#### 14. Number reverse and Check Prime
+
+```js
+let rev = 0;
+
+while (num > 0) {
+  let digit = num % 10;
+  rev = rev * 10 + digit;
+  num = Math.floor(num / 10);
+}
+```
+
+```js
+var checkPrime = function (num) {
+  if (num <= 1) return false;
+  if (num === 2 || num === 3) return true;
+  if (num % 2 === 0 || num % 3 === 0) return false;
+
+  let limit = Math.sqrt(num);
+
+  for (let i = 5; i <= limit; i += 6) {
+    if (num % i === 0 || num % (i + 2) === 0) return false;
+  }
+
+  return true;
+};
 ```
 
 ## Patterns
@@ -208,7 +289,7 @@ function solution(x) {
 - Length => sliding window
 - sliding window =>
   - Window resets
-  - window slides
+  - window fails then slides
   - window is true and make it false
 - Count of subarrays => AtMostK
 - Negative elements for sum => Prefix + Map
