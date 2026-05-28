@@ -13,11 +13,11 @@
 
 #### 3. Stack using two queues
 
-- push to one queue
+- push to first queue
 - while temp queue exists
-- push all to one queue
+- push all to first queue
 - swap queues
-- empty the one queue
+- empty the first queue
 - use temp queue for all
 
 #### 4. Valid parentheses
@@ -36,6 +36,7 @@
 #### 6. Remove all adjacent duplicates
 
 - solve it
+- In c++, you can use pop_back() on string
 
 #### 7. Minimum stack
 

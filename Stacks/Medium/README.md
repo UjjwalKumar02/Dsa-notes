@@ -4,8 +4,22 @@
 
 - Loop from end
 - stack.pop while smaller elements on top
-- res.push() -1 if empty and else top
+- res.push -1 if empty and else top
 - stack.push() currElement
+
+#### Pattern:
+
+```js
+let stack = [];
+
+for("loop"){
+  while(stack.length > 0 && ()){}
+
+  res[i] = "some";
+
+  stack.push("curr");
+}
+```
 
 #### 2. Next greater element (circular)
 

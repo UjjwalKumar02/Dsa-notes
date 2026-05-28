@@ -3,19 +3,29 @@
 - **Arrays:**
   - [Easy](./Arrays/Easy/README.md)
   - [Medium](./Arrays/Medium/README.md)
+
 - **Strings**:
   - [Easy](./Strings/Easy/README.md)
   - [Medium](./Strings/Medium/README.md)
+
 - **Sliding window**
   - [Medium](./Sliding-window/README.md)
+
 - **Stacks**
   - [Easy](./Stacks/Easy/README.md)
   - [Medium](./Stacks/Medium/README.md)
   - [Monotonic-stack](./Stacks/Monotonic-stack/README.md)
   - [Hard](./Stacks/Hard/README.md)
+
 - **Queues**
   - [Medium](./Queues/README.md)
+
 - **Binary search**
   - [Easy](./Binary-search/Easy/README.md)
   - [Medium](./Binary-search/Medium/README.md)
   - [Hard](./Binary-search/Hard/README.md)
+
+- **Recursion**
+  - [Easy](./Recursion/Easy/README.md)
+  - [Subsequence](./Recursion/Subsequence-pattern/README.md)
+  - [Hard](./Recursion/Hard/README.md)
