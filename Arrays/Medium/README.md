@@ -31,18 +31,20 @@ function solution(nums, k) {
 
 #### 3. Sort colors
 
-- Count the occurrence of elements
+- [Brute sol]: Count the occurrence of elements and place the elements
+
 - Array elements change ==> [arr[i], arr[j]] = [arr[j], arr[i]]
-- Three pointers soln
-- Mid goes to the end
+- Three pointers solution
+- Mid goes from 0 to end
 - Left and right for swaps
-- why not mid++ ==> Need to check new element
+- why not mid++ in right ==> Need to check new element
 
 ```js
 function solution(nums) {
   let left = 0;
   let mid = 0;
   let right = nums.length - 1;
+
   while (mid < right) {
     if (nums[mid] === 0) {
       [nums[left], nums[mid]] = [nums[mid], nums[left]];
@@ -82,6 +84,21 @@ function solution(nums) {
     maxSum = Math.max(maxSum, sum);
   }
   return maxSum;
+}
+```
+
+```js
+function alternate(nums) {
+  let prefix = nums[0];
+  let maxi = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    prefix = Math.max(nums[i], prefix + nums[i]);
+
+    maxi = Math.max(maxi, prefix);
+  }
+
+  return maxi;
 }
 ```
 
@@ -141,61 +158,71 @@ arr.sort((a, b) => b - a); // large - small , DESC
 - Sorting a array of arrays
 
 ```js
-function backtrack(index, nums, res) {
-  if (index === nums.length) {
-    res.push([...nums]);
+var generateAll = function (nums) {
+  let res = [];
+  let visited = new Array(nums.length).fill(false);
+  backtrack(0, [], res, nums, visited);
+  return res;
+};
+
+var backtrack = function (idx, curr, res, nums, visited) {
+  if (curr.length === nums.length) {
+    res.push([...curr]);
     return;
   }
-  for (let i = index; i < nums.length; i++) {
-    [nums[index], nums[i]] = [nums[i], nums[index]];
-    backtrack(index + 1, nums, res);
-    [nums[index], nums[i]] = [nums[i], nums[index]];
+
+  for (let i = 0; i < nums.length; i++) {
+    if (visited[i]) continue;
+
+    visited[i] = true;
+    curr.push(nums[i]);
+
+    backtrack(i + 1, curr, res, nums, visited);
+
+    curr.pop();
+    visited[i] = false;
   }
-}
+};
 
-function permute(nums) {
-  let res = [];
-  nums.sort((a, b) => a - b);
-  backtrack(0, nums, res);
-  return res;
-}
+var sol = function (nums) {
+  let all = generateAll(nums);
 
-function solution(nums) {
-  let all = permute([...nums]);
-
-  // Sort array of arrays
   all.sort((a, b) => {
-    for (let i = 0; i < a.length; i++) {
+    for (let i = 0; i < nums.length; i++) {
       if (a[i] !== b[i]) return a[i] - b[i];
     }
+
     return 0;
   });
 
-  // Find equal nums
-  let index = -1;
-  for (let i = 0; i < all.length; i++) {
+  let idx = -1;
+
+  for (let k = 0; k < all.length; k++) {
     let equal = true;
-    for (let j = 0; j < nums.length; j++) {
-      if (all[i][j] !== nums[j]) {
+
+    for (let i = 0; i < nums.length; i++) {
+      if (all[k][i] !== nums[i]) {
         equal = false;
         break;
       }
     }
+
     if (equal) {
-      index = i;
+      idx = k;
       break;
     }
   }
 
-  if (index === -1) return;
+  if (idx === -1) return;
 
-  index = (index + 1) % all.length;
-  let res = [...all[index]];
+  idx = (idx + 1) % all.length;
+
+  let temp = all[idx];
 
   for (let i = 0; i < nums.length; i++) {
-    nums[i] = res[i];
+    nums[i] = temp[i];
   }
-}
+};
 ```
 
 #### 9. Next permutation (Optimal)
@@ -257,6 +284,33 @@ for("loop"){
 - push only maximum elements
 - update maximum variable
 
+- Monotonic stack solution
+
+```js
+function leadersInArray(nums) {
+  let stack = [];
+  let right = new Array(nums.length).fill(-1);
+
+  for (let i = nums.length - 1; i >= 0; i--) {
+    while (stack.length > 0 && stack[stack.length - 1] <= nums[i]) {
+      stack.pop();
+    }
+
+    right[i] = stack.length > 0 ? -1 : nums[i];
+
+    stack.push(nums[i]);
+  }
+
+  let res = [];
+
+  for (let num of right) {
+    if (num !== -1) res.push(num);
+  }
+
+  return res;
+}
+```
+
 #### 12. Longest consecutive sequence
 
 - Find the starting point
@@ -264,6 +318,29 @@ for("loop"){
 - Loop in set (TL)
 - Curr ++, len ++
 - Solve
+
+```js
+var hashSet = function (nums) {
+  let st = new Set(nums);
+  let maxi = 0;
+
+  for (let num of st) {
+    if (!st.has(num - 1)) {
+      let curr = num;
+      let len = 0;
+
+      while (st.has(curr)) {
+        len++;
+        curr++;
+      }
+
+      maxi = Math.max(maxi, len);
+    }
+  }
+
+  return maxi;
+};
+```
 
 #### 13. Set matrix zero
 
@@ -279,11 +356,12 @@ for("loop"){
 
 - Four pointers
 
-#### 17. No. of subarrays with sum k
+#### 17. No. of subarrays with sum k (negatives allowed)
 
 - Map + prefix sum algorithm
-- If I’ve seen a prefix sum equal to sum - k before,
+- If prefix sum equal to sum - k is seen before,
 - then I found a subarray ending here with sum k.
+- map<prefix sum, freq>
 
 ```js
 function solution(arr, k) {
@@ -315,5 +393,33 @@ function solution(arr, k) {
 
 - solve it
 - prefix +1 -1
+- If prefix is seen before then subtract its length
 - map + prefix sum
+- map<prefix, earliest index>
 - map(0, -1) for length => i+1
+
+```js
+var solution = function (nums) {
+  let mpp = new Map();
+  // prefix, idx
+
+  mpp.set(0, -1);
+  // for len i+1
+
+  let res = 0;
+  let prefix = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    prefix += nums[i] === 1 ? 1 : -1;
+
+    if (mpp.has(prefix)) {
+      let len = i - mpp.get(prefix);
+      res = Math.max(res, len);
+    } else {
+      mpp.set(prefix, i);
+    }
+  }
+
+  return res;
+};
+```
