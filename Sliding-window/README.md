@@ -2,10 +2,10 @@
 
 #### 1. Sliding window pattern
 
-- Window exists
-- If window fails => reset window
-- If window fails => slides
-- While window is true => update and Fails the window
+- 1. Window exists
+- 2. If window fails => reset the window
+- 3. If window fails => slides
+- 4. While window is true => update and Fails the window
 
 #### 2. Update Length depending on situation
 
@@ -14,6 +14,40 @@
 - Add
 - Check if broken => If broken then slides
 - Update len
+
+#### Length of longest substring without duplicates
+
+- Use Map
+- Update current element in map
+- Then check if the current element has duplicates
+
+```js
+var lengthOfLongestSubstring = function (s) {
+  let l = 0;
+  let mpp = new Map();
+  let maxi = 0;
+
+  for (let r = 0; r < s.length; r++) {
+    mpp.set(s[r], (mpp.get(s[r]) || 0) + 1);
+
+    while (mpp.get(s[r]) > 1) {
+      let left = mpp.get(s[l]);
+
+      if (left - 1 === 0) {
+        mpp.delete(s[l]);
+      } else {
+        mpp.set(s[l], left - 1);
+      }
+
+      l++;
+    }
+
+    maxi = Math.max(maxi, r - l + 1);
+  }
+
+  return maxi;
+};
+```
 
 #### 4. Maximum Frequency update in sliding window
 
@@ -52,9 +86,10 @@ function sol(str, k) {
 
 - Number of subarrays => **atMostK algorithm** (only positives)
 - atMostK => Sliding window
+- Always `n - (n-1)`
 - atMostK(n) - atMostK(n-1)
 - n < 0, then return 0
-- cnt += r-l+1 , [includes 0 to n, all subarray sums]
+- cnt += r-l+1 , [includes 0 to n, all subarrays]
 - Prefix sum algorithm also works => **Map<sum, freq>**
 
 #### 6. Number of subarrays with k odds
@@ -63,39 +98,12 @@ function sol(str, k) {
 
 #### 7. Number of substrings containing all three chars
 
-- Trick : All - Not "abc" = Atleast "abc"
-- **Number of all subarrays = n\*(n+1)/2**
-
-```js
-function sol(str) {
-  let n = str.length;
-  let max = (n * (n + 1)) / 2;
-  let cnt = 0;
-
-  for (let i = 0; i < n; i++) {
-    let set = new Set();
-
-    for (let j = i; j < n; j++) {
-      set.add(str[j]);
-
-      if (set.has("a") && set.has("b") && set.has("c")) {
-        break;
-      }
-
-      cnt++;
-    }
-  }
-
-  return max - cnt;
-}
-```
-
 - Optimal:
 - sliding window
 - use Map to store the counts of a,b,c
 - when windows breaks => slides
 - cnt += n - r
-- inlcudes all starting from l and ending to r
+- [it is equal to the count of subarrays ending at r and after r, as they are valid]
 
 #### 8. Maximum points you can obtain from k cards
 
@@ -107,19 +115,41 @@ function sol(str) {
 
 - practice
 
-#### 10. Longest subarray with k distinct integers
+#### 10. Number of subarray with k distinct integers
 
 - Solve it
+- Two concepts:
+  - count of subarrays => [atmostk]
+  - map use for elements tracking
 
-#### 11. Minimum window substring
+#### 11. Pattern:
 
-- Map for storing => window and check
-- elements count
-- **Pattern:**
-- add
-- while(true condition)
-- update
-- then make it false by sliding left
+- `count += r - l + 1`
+  - counts all substrings ending at r and starting anywhere from l to r.
+
+- `count += n - r`
+  - counts all substrings starting at l and ending anywhere from r to n-1.
+
+- `Minimum len Substring result :`
+  - We need two variable: minLen and start
+  - Same for Maxlen substring result
+
+- `Sliding window pattern :`
+  - [When window becomes valid, then update res and slides to make it invalid]
+
+  - 1. Number of substrings containing atleast "a", "b", "c" one times each
+    - Map for storing all elements freq
+    - While window becomes valid
+    - Count all substrings starting at l => as all will be valid
+    - Make the window invalid by sliding
+
+  - 2. Minimum window substring
+    - Maps for need and has
+    - counts for need and has
+    - While window becomes valid
+    - Records the substring into res
+    - At last cover the edge cases
+    - Solve it
 
 ```js
 function sol(s, t) {
@@ -163,21 +193,29 @@ function sol(s, t) {
 }
 ```
 
+- [Conclusion] : Check if this algorithm works and needed for the case
+
 ### 12. Minimum window subsequence
 
 - Revisit
+
 - **Brute Force :**
 - Two Loops and temp string
-- validate func
-- if true => if len < minLen || len === minLen && i < startIndex
-- update res string
-- Validate function **Pattern :**
+- Validate function
+- If valid => if ((len < minLen) || (len === minLen && i < minIndex))
+- Update res string
+- Validate function => **Pattern :**
 
 ```js
 let k = 0;
-for(let i=0 => n)
-if(temp[i] === t[k]) k++
-return k === t.length
+
+for (let i = 0; i < n; i++) {
+  if (temp[i] === t[k]) {
+    k++;
+  }
+}
+
+return k === t.length;
 ```
 
 - **Optimal :**

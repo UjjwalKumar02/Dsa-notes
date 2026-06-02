@@ -1,21 +1,21 @@
-var solution = function(s){
-  let n = s.length;
+var solution = function (s) {
   let l = 0;
-  let maxLen = 0;
-  let st = new Set();
+  let mpp = new Map();
+  let maxi = 0;
 
-  for(let r=0; r<n; r++){
-    while(st.has(s[r])){
-      st.delete(s[l]);
+  for (let r = 0; r < s.length; r++) {
+    mpp.set(s[r], (mpp.get(s[r]) || 0) + 1);
+
+    while (mpp.get(s[r]) > 1) {
+      mpp.set(s[l], mpp.get(s[l]) ? mpp.get(s[l]) - 1 : -1);
       l++;
     }
 
-    st.add(s[r]);
-    maxLen = Math.max(maxLen, r-l+1);
+    maxi = Math.max(maxi, r - l + 1);
   }
 
-  return maxLen;
-}
+  return maxi;
+};
 
 let s = "abcabcbb";
 
